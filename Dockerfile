@@ -1,10 +1,44 @@
+FROM mhart/alpine-node:5.6.0
 
-FROM debian:jessie
-MAINTAINER Jessica Frazelle <jess@docker.com>
+# Install required dependencies (Alpine Linux packages)
+RUN apk update && \
+ apk add --no-cache \
+   g++ \
+   gcc \
+   git \
+   libev-dev \
+   libevent-dev \
+   libuv-dev \
+   make \
+   openssl-dev \
+   perl \
+   python
 
-RUN apt-get update && apt-get install -y \
-	stress \
-	--no-install-recommends \
-	&& rm -rf /var/lib/apt/lists/* 
+# Switch to directory for external dependencies (installed from source)
+WORKDIR /external
 
-ENTRYPOINT [ "stress" ]
+# Install (global) NPM packages/dependencies
+RUN npm install -g \
+ node-gyp \
+ pm2
+
+# Switch to directory with sources
+WORKDIR /src
+
+# Copy package json and install dependencies
+COPY package.json .
+
+# Install (local) NPM and Bower packages/dependencies
+RUN npm install
+
+# Copy required stuff
+ADD . .
+
+RUN npm run build # Build (using webpack) assets
+
+# Expose SERVER ports
+EXPOSE 3000
+EXPOSE 55555
+
+# Specify default CMD
+CMD pm2 start --no-daemon npm --no-automation -- run $RUN_CMD
