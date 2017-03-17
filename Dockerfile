@@ -1,4 +1,4 @@
-FROM python:2.7 
+FROM quay.io/kbrwn/private
 ENV PYTHONUNBUFFERED 1 
 RUN apt-get update && apt-get install -y \ 
 libmemcached-dev \ 
