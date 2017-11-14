@@ -5,6 +5,7 @@ ENV LADA_CONTAINER_HOME=/opt/lada
 RUN mkdir $LADA_CONTAINER_HOME
 
 COPY . $LADA_CONTAINER_HOME
+COPY requirements.txt $LADA_CONTAINER_HOME/requirements.txt
 COPY ./requirements/ $LADA_CONTAINER_HOME/requirements/
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
