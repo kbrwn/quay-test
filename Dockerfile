@@ -1,4 +1,3 @@
-FROM alpine
-RUN exit 1
-
+FROM ubuntu
+RUN sleep 30
 
