@@ -1,3 +1,3 @@
-FROM ubuntu
+FROM ruby
 RUN sleep 30
 
