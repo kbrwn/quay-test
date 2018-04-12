@@ -1,3 +1,3 @@
-FROM fedora
+FROM alpine
 RUN sleep 30
 
