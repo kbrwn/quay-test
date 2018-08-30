@@ -1,4 +1,4 @@
-FROM quay.io/private/private
+FROM nginx:latest
 RUN mkdir /src
 WORKDIR /src
 RUN npm update
