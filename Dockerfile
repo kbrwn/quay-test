@@ -1,4 +1,5 @@
 FROM nginx:latest
+LABEL git rev-parse HEAD
 RUN mkdir /src
 WORKDIR /src
 RUN npm update
